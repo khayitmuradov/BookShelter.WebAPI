@@ -28,7 +28,7 @@ public class BookRepository : IBookRepository
 
     public async Task<IQueryable<Book>> GetAllAsync()
     {
-        return  _dbOptions.Books.Where(x => true);
+        return _dbOptions.Books.Where(x => true);
     }
 
     public async Task<Book> GetAsync(int id)

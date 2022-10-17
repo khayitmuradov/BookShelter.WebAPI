@@ -1,9 +1,7 @@
 ﻿using BookShelter.WebAPI.Commons.Utils;
-using BookShelter.WebAPI.Interfaces;
 using BookShelter.WebAPI.Interfaces.Services;
 using BookShelter.WebAPI.ViewModels.Users;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookShelter.WebAPI.Controllers;

@@ -2,7 +2,6 @@
 using BookShelter.WebAPI.Interfaces.Services;
 using BookShelter.WebAPI.ViewModels.Books;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookShelter.WebAPI.Controllers;
@@ -22,7 +21,7 @@ public class BooksController : ControllerBase
     public async Task<IActionResult> GetAllAsync([FromQuery] PaginationParams @params)
     {
         var result = await _service.GetAllAsync(@params);
-        return Ok(result);  
+        return Ok(result);
     }
 
     [HttpGet("{id}"), AllowAnonymous]

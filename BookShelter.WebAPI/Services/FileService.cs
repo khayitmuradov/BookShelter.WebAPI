@@ -1,6 +1,5 @@
 ﻿using BookShelter.WebAPI.Commons.Helpers;
 using BookShelter.WebAPI.Interfaces.Services;
-using Microsoft.AspNetCore.Hosting;
 
 namespace BookShelter.WebAPI.Services;
 

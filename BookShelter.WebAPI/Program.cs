@@ -1,4 +1,3 @@
-
 using BookShelter.WebAPI.Commons.Configurations;
 using BookShelter.WebAPI.DbContexts;
 using BookShelter.WebAPI.Interfaces.Managers;
@@ -8,7 +7,7 @@ using BookShelter.WebAPI.Repositories;
 using BookShelter.WebAPI.Security;
 using BookShelter.WebAPI.Services;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 
 #region Services
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +16,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.ConfigureJwt(builder.Configuration);
 builder.Services.ConfigureSwaggerAuthorize();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddCors(corsOptions =>
+{
+    corsOptions.AddPolicy("AllowAll", corsAccesses =>
+        corsAccesses.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+});
 #endregion
 
 #region Database
@@ -26,6 +31,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(dbOptions =>
     dbOptions.UseNpgsql(connectionString);
     dbOptions.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 });
+#endregion
+
+#region Serilog
+builder.Host.UseSerilog((hostingContext, loggerConfiguration) =>
+    loggerConfiguration.ReadFrom.Configuration(hostingContext.Configuration));
 #endregion
 
 #region RepositoryRelations
@@ -50,6 +60,7 @@ if (app.Environment.IsDevelopment())
 }
 app.UseStaticFiles();
 app.UseHttpsRedirection();
+app.UseCors("AllowAll");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();

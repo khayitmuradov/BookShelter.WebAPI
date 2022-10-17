@@ -13,7 +13,7 @@ public class AuthManager : IAuthManager
 
     public AuthManager(IConfiguration configuration)
     {
-         _config = configuration.GetSection("Jwt");
+        _config = configuration.GetSection("Jwt");
     }
 
     public string GenerateToken(User user)

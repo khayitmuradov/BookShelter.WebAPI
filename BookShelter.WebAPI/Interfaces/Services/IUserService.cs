@@ -1,7 +1,5 @@
 ﻿using BookShelter.WebAPI.Commons.Utils;
-using BookShelter.WebAPI.Models;
 using BookShelter.WebAPI.ViewModels.Users;
-using System.Linq;
 
 namespace BookShelter.WebAPI.Interfaces.Services;
 

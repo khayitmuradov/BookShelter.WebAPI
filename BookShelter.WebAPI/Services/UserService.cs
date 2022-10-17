@@ -3,7 +3,6 @@ using BookShelter.WebAPI.DbContexts;
 using BookShelter.WebAPI.Interfaces.Repositories;
 using BookShelter.WebAPI.Interfaces.Services;
 using BookShelter.WebAPI.Models;
-using BookShelter.WebAPI.Security;
 using BookShelter.WebAPI.ViewModels.Users;
 
 namespace BookShelter.WebAPI.Services;
@@ -16,9 +15,9 @@ public class UserService : IUserService
 
     public UserService(IUserRepository repository, IFileService fileService, ApplicationDbContext dbContext)
     {
-        this._repository = repository;
-        this._fileService = fileService;
-        this._dbContext = dbContext;
+        _repository = repository;
+        _fileService = fileService;
+        _dbContext = dbContext;
     }
 
     public async Task<(int statusCode, string message)> DeleteAsync(int id)

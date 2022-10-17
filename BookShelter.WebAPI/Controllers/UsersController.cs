@@ -19,12 +19,6 @@ public class UsersController : ControllerBase
         _service = service;
     }
 
-    [HttpPost]
-    public async Task<IActionResult> CreateAsync([FromForm] UserCreateViewModel userCreateViewModel)
-    {
-        var result = await _service.CreateAsync(userCreateViewModel);
-        return StatusCode(result.statusCode, result.message);
-    }
 
     [HttpGet, AllowAnonymous]
     public async Task<IActionResult> GetAllAsync([FromQuery] PaginationParams @params)

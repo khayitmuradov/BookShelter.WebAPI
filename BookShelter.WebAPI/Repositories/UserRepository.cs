@@ -49,4 +49,11 @@ public class UserRepository : IUserRepository
     {
         return await _dbOptions.Users.FirstOrDefaultAsync(x => x.PhoneNumber == phoneNumber);
     }
+
+    public async Task<User> CreateAsync(User user)
+    {
+        await _dbOptions.Users.AddAsync(user);
+        await _dbOptions.SaveChangesAsync();
+        return user;
+    }
 }

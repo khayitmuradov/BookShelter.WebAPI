@@ -1,4 +1,5 @@
 ﻿using BookShelter.WebAPI.Commons.Utils;
+using BookShelter.WebAPI.DbContexts;
 using BookShelter.WebAPI.Interfaces.Repositories;
 using BookShelter.WebAPI.Interfaces.Services;
 using BookShelter.WebAPI.Models;
@@ -11,26 +12,13 @@ public class UserService : IUserService
 {
     private readonly IUserRepository _repository;
     private readonly IFileService _fileService;
+    private readonly ApplicationDbContext _dbContext;
 
-    public UserService(IUserRepository repository, IFileService fileService)
+    public UserService(IUserRepository repository, IFileService fileService, ApplicationDbContext dbContext)
     {
         this._repository = repository;
         this._fileService = fileService;
-    }
-
-    public async Task<(int statusCode, string message)> CreateAsync(UserCreateViewModel userCreateViewModel)
-    {
-        var user = (User)userCreateViewModel;
-        if (userCreateViewModel.Image is not null)
-        {
-            user.ImagePath = await _fileService.SaveImageAsync(userCreateViewModel.Image);
-        }
-        var hasherResult = PasswordHasher.Hash(userCreateViewModel.Password);
-        user.Salt = hasherResult.Salt;
-        user.PasswordHash = hasherResult.Hash;
-        await _repository.CreateAsync(user);
-
-        return (statusCode: 200, message: "");
+        this._dbContext = dbContext;
     }
 
     public async Task<(int statusCode, string message)> DeleteAsync(int id)
@@ -41,6 +29,7 @@ public class UserService : IUserService
         else
         {
             await _repository.DeleteAsync(id);
+            await _dbContext.SaveChangesAsync();
             return (statusCode: 200, message: "");
         }
     }

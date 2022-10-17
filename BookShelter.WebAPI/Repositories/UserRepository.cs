@@ -14,12 +14,6 @@ public class UserRepository : IUserRepository
         this._dbOptions = appDbContext;
     }
 
-    public async Task CreateAsync(User user)
-    {
-        await _dbOptions.Users.AddAsync(user);
-        await _dbOptions.SaveChangesAsync();
-    }
-
     public async Task DeleteAsync(int id)
     {
         var user = await _dbOptions.Users.FindAsync(id);

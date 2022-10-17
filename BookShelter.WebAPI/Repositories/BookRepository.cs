@@ -1,6 +1,7 @@
 ﻿using BookShelter.WebAPI.DbContexts;
 using BookShelter.WebAPI.Interfaces.Repositories;
 using BookShelter.WebAPI.Models;
+using Microsoft.EntityFrameworkCore;
 #nullable disable
 namespace BookShelter.WebAPI.Repositories;
 
@@ -21,7 +22,7 @@ public class BookRepository : IBookRepository
 
     public async Task DeleteAsync(int id)
     {
-        var book = await _dbOptions.Books.FindAsync(id);
+        var book = await _dbOptions.Books.FirstOrDefaultAsync(p => p.Id == id);
         _dbOptions.Books.Remove(book);
     }
 

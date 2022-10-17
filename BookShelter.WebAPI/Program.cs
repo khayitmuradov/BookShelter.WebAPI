@@ -1,4 +1,4 @@
-#region Services
+
 using BookShelter.WebAPI.Commons.Configurations;
 using BookShelter.WebAPI.DbContexts;
 using BookShelter.WebAPI.Interfaces.Managers;
@@ -10,6 +10,7 @@ using BookShelter.WebAPI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
+#region Services
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -49,6 +50,7 @@ if (app.Environment.IsDevelopment())
 }
 app.UseStaticFiles();
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();

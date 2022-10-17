@@ -1,4 +1,5 @@
 ﻿using BookShelter.WebAPI.Commons.Utils;
+using BookShelter.WebAPI.DbContexts;
 using BookShelter.WebAPI.Interfaces.Repositories;
 using BookShelter.WebAPI.Interfaces.Services;
 using BookShelter.WebAPI.Models;
@@ -9,10 +10,12 @@ namespace BookShelter.WebAPI.Services;
 public class BookService : IBookService
 {
     private readonly IBookRepository _repository;
+    private readonly ApplicationDbContext _dbContext;
 
-    public BookService(IBookRepository repository)
+    public BookService(IBookRepository repository, ApplicationDbContext dbContext)
     {
         _repository = repository;
+        _dbContext = dbContext;
     }
 
     public async Task<(int statusCode, string message)> CreateAsync(BookCreateViewModel bookCreateViewModel)
@@ -33,6 +36,7 @@ public class BookService : IBookService
         else
         {
             await _repository.DeleteAsync(id);
+            await _dbContext.SaveChangesAsync();
             return (statusCode: 200, message: "");
         }
     }

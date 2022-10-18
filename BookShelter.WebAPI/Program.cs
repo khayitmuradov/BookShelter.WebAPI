@@ -20,7 +20,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddCors(corsOptions =>
 {
     corsOptions.AddPolicy("AllowAll", corsAccesses =>
-        corsAccesses.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+        corsAccesses.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 });
 #endregion
 

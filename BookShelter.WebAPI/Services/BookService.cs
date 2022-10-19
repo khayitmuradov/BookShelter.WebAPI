@@ -13,7 +13,7 @@ public class BookService : IBookService
     private readonly ApplicationDbContext _dbContext;
     private readonly IFileService _fileService;
 
-    public BookService(IBookRepository repository, ApplicationDbContext dbContext, FileService fileService)
+    public BookService(IBookRepository repository, ApplicationDbContext dbContext, IFileService fileService)
     {
         _repository = repository;
         _dbContext = dbContext;

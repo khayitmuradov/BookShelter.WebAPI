@@ -1,4 +1,5 @@
 using BookShelter.WebAPI.Commons.Configurations;
+using BookShelter.WebAPI.Commons.Middlewares;
 using BookShelter.WebAPI.DbContexts;
 using BookShelter.WebAPI.Interfaces.Managers;
 using BookShelter.WebAPI.Interfaces.Repositories;
@@ -58,6 +59,7 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 app.UseStaticFiles();
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");

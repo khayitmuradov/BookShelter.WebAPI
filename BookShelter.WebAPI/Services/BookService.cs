@@ -11,16 +11,20 @@ public class BookService : IBookService
 {
     private readonly IBookRepository _repository;
     private readonly ApplicationDbContext _dbContext;
+    private readonly FileService _fileService;
 
-    public BookService(IBookRepository repository, ApplicationDbContext dbContext)
+    public BookService(IBookRepository repository, ApplicationDbContext dbContext, FileService fileService)
     {
         _repository = repository;
         _dbContext = dbContext;
+        _fileService = fileService;
     }
 
     public async Task<(int statusCode, string message)> CreateAsync(BookCreateViewModel bookCreateViewModel)
     {
         var book = (Book)bookCreateViewModel;
+        if (bookCreateViewModel.Image is not null)
+            book.ImagePath = await _fileService.SaveImageAsync(bookCreateViewModel.Image);
         await _repository.CreateAsync(book);
 
         return (statusCode: 200, message: "");

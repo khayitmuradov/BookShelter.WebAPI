@@ -8,7 +8,7 @@ public interface IBookRepository
 
     Task<IQueryable<Book>> GetAllAsync();
 
-    Task CreateAsync(Book book);
+    Task<Book> CreateAsync(Book book);
 
     Task<Book> UpdateAsync(int id, Book book);
 

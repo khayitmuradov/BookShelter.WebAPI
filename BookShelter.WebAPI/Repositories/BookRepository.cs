@@ -14,10 +14,11 @@ public class BookRepository : IBookRepository
         _dbOptions = appDb;
     }
 
-    public async Task CreateAsync(Book book)
+    public async Task<Book> CreateAsync(Book book)
     {
         await _dbOptions.Books.AddAsync(book);
         await _dbOptions.SaveChangesAsync();
+        return book;
     }
 
     public async Task DeleteAsync(int id)

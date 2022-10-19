@@ -15,7 +15,7 @@ public class BookCreateViewModel
     [MaxFileSize(5)]
     [DataType(DataType.Upload)]
     [AllowedFileExtensions(new string[] { ".jpg", ".jpeg", ".png" })]
-    public IFormFile Image { get; set; } = null!;
+    public IFormFile? Image { get; set; } = null!;
 
     [Required]
     [MaxLength(500)]

@@ -24,8 +24,10 @@ public class BookService : IBookService
     {
         var book = (Book)bookCreateViewModel;
         if (bookCreateViewModel.Image is not null)
+        {
             book.ImagePath = await _fileService.SaveImageAsync(bookCreateViewModel.Image);
-        await _repository.CreateAsync(book);
+            await _repository.CreateAsync(book);
+        }
 
         return (statusCode: 200, message: "");
     }
